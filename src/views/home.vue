@@ -18,7 +18,7 @@
     <div class="presonal">
       <div class="presonal_s">
         <p>
-          <van-icon size="20px" name="friends-o" />
+          <van-icon @click="register" size="20px" name="friends-o" />
         </p>
         <span>
           <van-icon size="20px" name="envelop-o" />
@@ -66,7 +66,11 @@ export default {
       a: "陪你度过漫长岁月"
     };
   },
-  methods: {},
+  methods: {
+    register() {
+      this.$router.push({ name: "register" });
+    }
+  },
   components: {
     HelloWorld
   }
