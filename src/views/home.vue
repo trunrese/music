@@ -1,53 +1,103 @@
 <template>
   <div class="home">
-    <div class="nav">
-      <p>我的</p>
-      <div class="seach">
+    <div class="top">
+      <div>我的</div>
+      <div>
         <van-search
-          background="rgba(0,0,0,0)"
           shape="round"
-          :placeholder="a"
+          background="rgba(0,0,0,0)"
+          placeholder="请输入搜索关键词"
           v-model="value"
-          right-icon
         />
       </div>
-      <span>
-        <van-icon size="2rem" name="wap-nav" />
-      </span>
+      <div>
+        <van-icon size="10vw" name="wap-nav" />
+      </div>
     </div>
-    <div class="presonal">
-      <div class="presonal_s">
-        <p>
-          <van-icon @click="register" size="20px" name="friends-o" />
-        </p>
+    <div class="main">
+      <div class="user">
         <span>
-          <van-icon size="20px" name="envelop-o" />
+          <van-image
+            style="display:block;
+        margin-left:5vw;
+        margin-right:3vw;"
+            round
+            width="5rem"
+            height="5rem"
+            src="http://img0.imgtn.bdimg.com/it/u=2742913999,1742817843&fm=26&gp=0.jpg"
+          />
+          {{msg}}
         </span>
+        <van-icon size="10vw" name="envelop-o" />
       </div>
-      <hr />
-      <div class="presonal_x">
-        <span>活动中心</span>
-        <em>会员中心</em>
+      <div class="usermsg">
+        <div class="active">
+          <span>
+            <van-icon size="8vw" name="bookmark" />
+          </span>
+          <span>
+            <h2>活动中心</h2>
+            <p class="gray">立即签到</p>
+          </span>
+        </div>
+        <div class="active">
+          <span>
+            <van-icon size="8vw" name="gem-o" />
+          </span>
+          <span>
+            <h2>会员中心</h2>
+            <p class="gray">千万专属曲库任性享</p>
+          </span>
+        </div>
       </div>
-    </div>
-    <van-grid :border="false">
-      <van-grid-item icon="like-o" text="喜欢" />
-      <van-grid-item icon="underway-o" text="最近" />
-      <van-grid-item icon="down" text="本地歌曲" />
-      <van-grid-item icon="passed" text="已购" />
-    </van-grid>
-    <div class="classify">
-      <div class="top">
-        <h4>智能分类</h4>
+      <div class="kind">
+        <van-grid style=" margin-top:3vw; ">
+          <van-grid-item icon="like-o" text="喜欢" />
+          <van-grid-item icon="clock-o" text="最近" />
+          <van-grid-item icon="down" text="本地歌曲" />
+          <van-grid-item icon="passed" text="以购" />
+        </van-grid>
+        <div class="known">
+          <h3>智能分类</h3>
+          <span>听歌周榜</span>
+          <span>王力宏</span>
+          <span>情歌</span>
+          <span>梁静茹</span>
+          <p>...</p>
+        </div>
       </div>
-      <div class="bom">
-        <div>经典金曲</div>
-        <div>治愈</div>
-        <div>约会</div>
-        <div>ACG</div>
-        <div>薛之谦</div>
-        <div>
-          <van-icon size="20px" name="more-o" />
+      <div class="mysong">
+        <div style="width:100%">
+          <van-tabs v-model="active">
+            <van-tab title="自建歌单">
+              <van-card
+                desc="20首，10首已下载"
+                title="2020"
+                thumb="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3016511076,1495638641&fm=11&gp=0.jpg"
+              />
+              <van-card
+                desc="35首，18首已下载"
+                title="02"
+                thumb="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3047553790,2037325466&fm=26&gp=0.jpg"
+              />
+              <van-card
+                desc="42首，22首已下载"
+                title="02"
+                thumb="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2845979809,2262862877&fm=11&gp=0.jpg"
+              />
+            </van-tab>
+            <van-tab title="收藏歌单">
+              <van-card
+                desc="20首，20首已下载"
+                title="晚安"
+                thumb="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2845979809,2262862877&fm=11&gp=0.jpg"
+              />
+            </van-tab>
+          </van-tabs>
+        </div>
+        <div class="m-right">
+          <van-icon size="5vw" name="add-square" />
+          <van-icon size="5vw" name="bars" />
         </div>
       </div>
     </div>
@@ -56,84 +106,79 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "home",
   data() {
     return {
       value: "",
-      a: "陪你度过漫长岁月"
+      img: "",
+      msg: "木子",
+      active: 0
     };
-  },
-  methods: {
-    register() {
-      this.$router.push({ name: "register" });
-    }
-  },
-  components: {
-    HelloWorld
   }
 };
 </script>
-
-<style scoped>
-.home {
+/**scoped是指值在当前内有效 */
+<style  scoped>
+.top,
+.main {
   padding: 0 5vw;
 }
-.nav {
+.top {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.seach {
-  width: 60vw;
-}
-.presonal {
-  height: 10rem;
-  background: white;
-}
-.presonal_s {
-  height: 4.8rem;
+.user span,
+.user {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
-.presonal_s > p {
-  margin-left: 2rem;
-}
-.presonal_s > span {
-  margin-right: 2rem;
-}
-.presonal_x {
-  height: 5.2rem;
-  display: flex;
+.user {
   justify-content: space-between;
+  background: #ffffff;
+}
+.usermsg {
+  background: #ffffff;
+  display: flex;
+  margin-top: 1vw;
+}
+
+.active {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
   align-items: center;
+  font-size: 3vw;
 }
-.presonal_x > span {
-  margin-left: 2rem;
-}
-.presonal_x > em {
-  font-style: normal;
-  margin-right: 2rem;
-}
-.classify {
-  height: 4rem;
-}
-.classify > .top,
-.classify > .bom {
-  height: 2rem;
-}
-.classify > .top > h4 {
+.known span,
+.known p {
+  border: 0.3vw solid #333;
+  padding: 0.7vw;
+  border-radius: 50%;
   margin: 0;
-  text-align: left;
-  text-indent: 1rem;
-  line-height: 2rem;
+  font-size: 4vw;
+  margin-right: 2vw;
 }
-.classify > .bom {
+.known p {
+  display: inline-block;
+  border-radius: 50%;
+}
+.known h3 {
+  font-size: 4vw;
+  text-align: left;
+}
+
+.m-right {
+  width: 15%;
+}
+.mysong,
+.m-right {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+}
+.m-right {
+  align-items: top;
+  margin-top: 4vw;
 }
 </style>

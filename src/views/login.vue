@@ -1,27 +1,19 @@
 <template>
   <div class="login">
-    <input class="ipt1" type="text" placeholder="请输入你的手机号" />
-    <br />
-    <input class="ipt2" type="password" placeholder="请输入你的密码" />
-    <br />
-    <button @click="home">登录</button>
-    <br />
+    <img src="http://img2.imgtn.bdimg.com/it/u=2129738617,337931467&fm=26&gp=0.jpg" alt />
+    <h1>QQ音乐</h1>
+    <van-field v-model="value" type="phone" label="手机号码" placeholder="请输入手机号" />
+    <van-field v-model="password" type="password" label="密码" placeholder="请输入密码" />
+    <van-button type="default">登录</van-button>
+    <van-button type="default">注册</van-button>
   </div>
 </template>
 <script>
 export default {
-  methods: {
-    home() {
-      this.$router.push({ name: "home" });
-    }
+  data() {
+    return {
+      value: ""
+    };
   }
 };
 </script>
-<style scoped>
-.login {
-  padding: 10rem 5vw;
-}
-.ipt1 {
-  margin: 1rem 0;
-}
-</style>

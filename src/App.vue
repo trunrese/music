@@ -3,10 +3,10 @@
     <router-view />
     <div id="nav">
       <van-tabbar v-model="active">
-        <van-tabbar-item to="/home">我的</van-tabbar-item>
-        <van-tabbar-item to="/find">音乐馆</van-tabbar-item>
-        <van-tabbar-item to="/cloud">推荐</van-tabbar-item>
-        <van-tabbar-item to="/video">动态</van-tabbar-item>
+        <van-tabbar-item to="/home" icon="contact">我的</van-tabbar-item>
+        <van-tabbar-item to="/find" icon="music-o">音乐馆</van-tabbar-item>
+        <van-tabbar-item to="/cloud" icon="ecard-pay">推荐</van-tabbar-item>
+        <van-tabbar-item to="/login" icon="aim">登录</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
