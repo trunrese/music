@@ -2,11 +2,11 @@
   <div id="app">
     <router-view />
     <div id="nav">
-      <van-tabbar v-model="active">
-        <van-tabbar-item to="/home" icon="contact">我的</van-tabbar-item>
-        <van-tabbar-item to="/find" icon="music-o">音乐馆</van-tabbar-item>
-        <van-tabbar-item to="/cloud" icon="ecard-pay">推荐</van-tabbar-item>
-        <van-tabbar-item to="/login" icon="aim">登录</van-tabbar-item>
+      <van-tabbar route>
+        <van-tabbar-item :to="{name:'home'}" icon="contact">我的</van-tabbar-item>
+        <van-tabbar-item :to="{name:'find'}" icon="music-o">音乐馆</van-tabbar-item>
+        <van-tabbar-item :to="{name:'cloud'}" icon="ecard-pay">推荐</van-tabbar-item>
+        <van-tabbar-item :to="{name:'login'}" icon="aim">登录</van-tabbar-item>
       </van-tabbar>
     </div>
   </div>
@@ -15,9 +15,7 @@
 <script>
 export default {
   data() {
-    return {
-      active: 0
-    };
+    return {};
   },
   children: [{}]
 };

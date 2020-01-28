@@ -12,6 +12,7 @@
   </div>
 </template>
 <script>
+// import { Toast } from "vant";
 import axios from "axios";
 export default {
   data() {
@@ -24,10 +25,16 @@ export default {
   },
   created() {
     axios
-      .get(`http://localhost:3000/captcha/verify?phone=17337224735`)
+      .get("http://localhost:3000/captcha/sent?phone=17337224735")
       .then(res => {
         console.log(res);
       });
   }
 };
 </script>
+<style scoped>
+.register img {
+  width: 10rem;
+  height: 10rem;
+}
+</style>

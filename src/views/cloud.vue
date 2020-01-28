@@ -1,152 +1,135 @@
 <template>
-  <div class="about">
-    <div class="top">
-      <h1 style="font-size:5vw;">推荐</h1>
-      <div>
-        <van-search shape="round" background="rgba(0,0,0,0)" :placeholder="msg" v-model="value" />
-      </div>
-      <div>
-        <van-icon size="10vw" name="music" />
-      </div>
-    </div>
-    <div class="Offlist">
-      <h2>Hi {{username}},今日为你打造</h2>
-      <div class="OL">
-        <figure>
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-            alt
-          />
-          <figcaption>欧美流行</figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-            alt
-          />
-          <figcaption>欧美流行</figcaption>
-        </figure>
-        <figure>
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-            alt
-          />
-          <figcaption>欧美流行</figcaption>
-        </figure>
-      </div>
-    </div>
-    <div class="wailist">
-      <div class="list">
-        <h2>最近常听</h2>
-        <div class="OL">
-          <figure>
-            <img
-              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-              alt
-            />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-              alt
-            />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-              alt
-            />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div class="list">
-        <h2>符合你最近收听的音乐</h2>
-        <div class="OL">
-          <figure>
-            <img
-              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-              alt
-            />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-              alt
-            />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-              alt
-            />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-        </div>
+  <div class="cloud">
+    <div class="singer">
+      <!-- <div class="left">
+                <ul>
+                    <li
+                    v-for="item in items"
+                    :key="item.pst"
+                    >
+                    {{item.text}}
+                    </li>
+                </ul>
+      </div>-->
+      <!-- <div class="right">
+                <div v-for="item in singerList" :key="item.id" class="right_div">
+                    <div>{{item.name}}</div>
+                </div>
+      </div>-->
+      <van-sidebar v-model="activeKey">
+        <van-sidebar-item v-for="p in items" :key="p.pst" :title="p.text" />
+      </van-sidebar>
+      <div class="singerName">
+        <van-loading type="spinner" style="text-align:center;" v-show="showLoading" />
+        <!-- <div style="text-align:center;color:#aaa;" v-show="error">加载失败点击重试~</div> -->
+        <van-card v-for="(item,i) in singerList" :key="i" :title="item.name" :thumb="item.picUrl" />
       </div>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      msg: "有幸",
-      username: "木子"
+      showLoading: false,
+      activeKey: 0,
+      singerList: "",
+      error: true,
+      items: [
+        { text: "入驻歌手", pst: "5001" },
+        { text: "华语男歌手", pst: "1001" },
+        { text: "华语女歌手", pst: "1002" },
+        { text: "华语组合/乐队", pst: "1003" },
+        { text: "欧美男歌手", pst: "2001" },
+        { text: "欧美女歌手", pst: "2002" },
+        { text: "欧美组合/乐队", pst: "2003" },
+        { text: "日本男歌手", pst: "6001" },
+        { text: "日本女歌手", pst: "6002" },
+        { text: "日本组合/乐队", pst: "6003" },
+        { text: "韩国男歌手", pst: "7001" },
+        { text: "韩国女歌手", pst: "7002" },
+        { text: "韩国组合/乐队", pst: "7003" },
+        { text: "其他男歌手", pst: "4001" },
+        { text: "其他女歌手", pst: "4002" },
+        { text: "其他组合/乐队", pst: "4003" }
+      ]
     };
+  },
+  methods: {},
+  mounted() {
+    axios.get("http://localhost:3000/artist/list?cat=5001").then(res => {
+      console.log(res);
+      this.singerList = res.data.artists;
+    });
   }
 };
 </script>
-
-<style  scoped>
-.top,
-.about {
-  padding: 0 5vw;
-  margin: 0;
-  overflow-x: hidden;
+<style scoped>
+.cloud {
+  height: 100%;
 }
-.top {
-  width: 100%;
+.singer {
+  overflow: auto;
+  height: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
-/* 中间 */
-.wailist {
-  margin-top: 10vw;
-  border-radius: 30%;
-  background: #ffffff;
+.singer .van-sidebar {
+  width: 7.3em;
+  overflow: auto;
+  height: 100%;
 }
-.OL {
-  overflow-x: auto;
-  display: flex;
-  align-items: center;
-  padding: 1vw;
+[class*="van-hairline"]::after {
+  border: 0;
 }
-.Offlist {
-  margin-top: 8vw;
+.songs .van-nav-bar__title,
+.songs .van-icon-arrow-left {
+  color: #fff;
 }
-.OL figure {
-  margin: 0 3vw;
-  padding: 0;
-}
-.Offlist h2 {
+.singerName {
+  flex: 1;
   text-align: center;
-  font-size: 5vw;
+  height: 100%;
+  overflow: auto;
 }
-
-.Offlist img,
-.list img {
-  width: 30vw;
+.singerName .van-card {
+  background: #fff;
+  border-bottom: 1px #eee solid;
+  padding: 0 2em;
+  height: 5em;
 }
-.list h2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 5vw;
+.singerName .van-card__header,
+.singerName .van-card__content {
+  max-height: 5em;
+  min-height: 5em;
 }
+.singerName .van-card__thumb,
+.singerName .van-image__img,
+.singerName .van-image {
+  width: 5em;
+  max-height: 5em;
+}
+.singerName .van-card__title {
+  line-height: 5em;
+  max-height: 5em;
+  font-size: 1.1em;
+}
+/* .main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.main .left{
+    flex: 2;
+    height: 100%;
+    overflow: auto;
+}
+.main .right{
+    flex: 5;
+    height: 100%;
+    overflow: auto;
+}
+.right_div{
+    height: 30px;
+} */
 </style>

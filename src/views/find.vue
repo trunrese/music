@@ -1,168 +1,282 @@
 <template>
-  <div class="home">
-    <div class="top">
-      <h1 style="font-size:5vw;">音乐馆</h1>
+  <div class="find">
+    <!-- 轮播图 -->
+    <van-swipe :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="item in bannerList" :key="item.bannerId">
+        <img :src="item.pic" @click="tosing(item.targetId)" />
+      </van-swipe-item>
+    </van-swipe>
+
+    <!-- 宫格 -->
+    <!-- <van-grid :column-num="5">
+            <van-grid-item icon="calender-o" style="color:red;background:red" text="每日推荐" />
+            <van-grid-item icon="ecard-pay" text="歌单" />
+            <van-grid-item icon="bar-chart-o" text="排行榜" />
+            <van-grid-item icon="play-circle-o" text="电台" />
+            <van-grid-item icon="video-o" text="直播" />
+    </van-grid>-->
+    <div class="gong">
       <div>
-        <van-search shape="round" background="rgba(0,0,0,0)" placeholder="我们的歌" v-model="value" />
+        <div class="icon">
+          <van-icon name="calender-o" size="24px" color="#fff" />
+        </div>
+        <p>每日推荐</p>
+      </div>
+      <div @click="tosongfeilei">
+        <div class="icon">
+          <van-icon name="ecard-pay" size="24px" color="#fff" />
+        </div>
+        <p>歌单</p>
       </div>
       <div>
-        <van-icon size="10vw" name="music" />
+        <div class="icon" @click="topaihanglist">
+          <van-icon name="bar-chart-o" size="24px" color="#fff" />
+        </div>
+        <p>排行榜</p>
+      </div>
+      <div>
+        <div class="icon">
+          <van-icon name="play-circle-o" size="24px" color="#fff" />
+        </div>
+        <p>电台</p>
+      </div>
+      <div>
+        <div class="icon">
+          <van-icon name="video-o" size="24px" color="#fff" />
+        </div>
+        <p>直播</p>
       </div>
     </div>
-    <div class="main">
-      <div class="usermsg">
-        <div class="active">
-          <van-swipe :autoplay="3000" indicator-color="white">
-            <van-swipe-item>
-              <img src="http://img5.imgtn.bdimg.com/it/u=4251527860,874104653&fm=26&gp=0.jpg" alt />
-            </van-swipe-item>
-            <van-swipe-item>
-              <img
-                src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2500341420,640469444&fm=26&gp=0.jpg"
-                alt
-              />
-            </van-swipe-item>
-            <van-swipe-item>
-              <img src="http://img5.imgtn.bdimg.com/it/u=2308691045,3959994010&fm=26&gp=0.jpg" alt />
-            </van-swipe-item>
-            <van-swipe-item>
-              <img
-                src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2531130217,2974441494&fm=26&gp=0.jpg"
-                alt
-              />
-            </van-swipe-item>
-          </van-swipe>
-        </div>
-      </div>
-      <div class="kind">
-        <van-grid column-num="5" style=" margin-top:3vw; ">
-          <van-grid-item icon="contact" text="歌手" />
-          <van-grid-item icon="apps-o" text="排行" />
-          <van-grid-item icon="apps-o" text="分类歌单" />
-          <van-grid-item icon="home-o" text="电台" />
-          <van-grid-item icon="service-o" text="一起听" />
-        </van-grid>
-      </div>
-      <div class="Official">
-        <div>
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2523235567,4009336127&fm=26&gp=0.jpg"
-            alt
-          />
-          <p>
-            <span>新歌推荐</span>
-            简弘亦轻柔诉深情
-          </p>
-        </div>
-        <div>
-          <img
-            src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2523235567,4009336127&fm=26&gp=0.jpg"
-            alt
-          />
-          <p>
-            <span>新歌推荐</span>
-            简弘亦轻柔诉深情
-          </p>
-        </div>
-      </div>
-      <div class="Offlist">
-        <h2>
-          官方歌单
-          <span>
-            更多
-            <van-icon name="arrow" />
-          </span>
-        </h2>
-        <div class="OL">
-          <figure>
-            <img src="http://img2.imgtn.bdimg.com/it/u=2845979809,2262862877&fm=11&gp=0.jpg" alt />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-          <figure>
-            <img src="http://img2.imgtn.bdimg.com/it/u=2845979809,2262862877&fm=11&gp=0.jpg" alt />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-          <figure>
-            <img src="http://img2.imgtn.bdimg.com/it/u=2845979809,2262862877&fm=11&gp=0.jpg" alt />
-            <figcaption>欧美流行</figcaption>
-          </figure>
-        </div>
+
+    <!-- 歌单 -->
+
+    <h3>官方歌单</h3>
+
+    <ul class="songsheet">
+      <li v-for="item in songsheetList" :key="item.id" @click="tosongsheetdetail(item.id)">
+        <img :src="item.coverImgUrl" />
+        <span>{{item.name}}</span>
+      </li>
+    </ul>
+
+    <h3>推荐歌单</h3>
+    <div class="songlist">
+      <div
+        v-for="item in songList"
+        :key="item.id"
+        class="songsan"
+        @click="tosongsheetdetail(item.id)"
+      >
+        <img :src="item.picUrl" />
+        <span>{{item.name}}</span>
       </div>
     </div>
+
+    <!-- 最新推荐 -->
+    <h3>最新推荐</h3>
+    <ul class="singlist">
+      <li v-for="(item,index) in singList" :key="item.id" @click="tosing(item.id)">
+        <span>{{index+1}}</span>
+        <img :src="item.picUrl" />
+        <span class="aaa">{{item.name}}</span>
+      </li>
+    </ul>
+
+    <p class="di">小主，已经到底了哟~ o(*￣▽￣*)o</p>
   </div>
 </template>
-
 <script>
-// @ is an alias to /src
-
+import axios from "axios";
 export default {
   data() {
     return {
-      value: "",
-      img: "",
-      msg: "JOJO",
-      active: 0
+      bannerList: "",
+      songsheetList: "",
+      singList: "",
+      songList: ""
     };
+  },
+  mounted() {
+    //轮播图
+    axios.get("http://localhost:3000/banner?type=2").then(res => {
+      //console.log(res)
+      this.bannerList = res.data.banners;
+    }),
+      //歌单
+      axios
+        .get("http://localhost:3000/top/playlist/highquality?limit=8")
+        .then(res => {
+          //console.log(res)
+          this.songsheetList = res.data.playlists;
+        });
+    //推荐歌曲
+    axios.get("http://localhost:3000/personalized/newsong").then(res => {
+      //console.log(res)
+      this.singList = res.data.result;
+    });
+    //推荐歌单
+    axios.get("http://localhost:3000/personalized?limit=15").then(res => {
+      //console.log(res)
+      this.songList = res.data.result;
+    });
+  },
+  methods: {
+    tosing(id) {
+      //console.log(id)
+      if (id) {
+        this.$store.commit("tosing", id);
+        window.location.reload();
+      }
+    },
+    tosongsheetdetail(id) {
+      this.$router.push({
+        name: "songsheetdetail",
+        query: {
+          id: id
+        }
+      });
+      this.$store.commit("tosong", id);
+    },
+    tosongfeilei() {
+      this.$router.push({
+        name: "songfeilei"
+      });
+    },
+    topaihanglist() {
+      this.$router.push({
+        name: "paihanglist"
+      });
+    }
   }
 };
 </script>
-/**scoped是指值在当前内有效 */
-<style  scoped>
-.top,
-.main {
-  padding: 0 5vw;
+<style scoped>
+.find {
+  margin-bottom: 80px;
 }
-.top {
+img {
+  width: 100%;
+  height: 100%;
+}
+.gong {
+  height: 72px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  font-size: 14px;
+  color: #333;
 }
-/* banner图 */
-.active img {
-  width: 100%;
-}
-/* 两栏布局 中间的修饰 */
-.Official {
+.gong div {
+  width: 20%;
+  height: 72px;
+  text-align: center;
   display: flex;
-  justify-content: space-bettewn;
-  font-size: 1vw;
-  overflow-x: auto;
-  width: 100%;
+  flex-direction: column;
+  justify-content: space-around;
 }
-.Official img {
-  width: 20vw;
-  height: 15vw;
-}
-.Official p {
-  margin-left: 3vw;
-}
-.Official p span {
-  display: block;
-  font-weight: 900;
-}
-.Official div,
-.OL {
-  display: flex;
-  align-items: center;
-  padding: 1vw;
-}
-.Offlist h2 {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.Offlist h2 span {
-  font-size: 3vw;
-}
-.Offlist img {
-  width: 30vw;
-}
-/* 官方歌单 */
-.OL {
-  overflow-x: auto;
-}
-.OL figure {
-  margin: 0 3vw;
+.gong div p {
+  margin: 0;
   padding: 0;
+}
+.gong div .icon {
+  width: 40px;
+  height: 40px;
+  background-color: rgb(18, 247, 106);
+  margin-left: 25%;
+  border-radius: 50%;
+}
+.songsheet {
+  height: 30%;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.songsheet li {
+  width: 30%;
+  height: 100%;
+  margin: 10px;
+}
+.songsheet li img {
+  width: 100px;
+  height: 100px;
+}
+.songsheet li span {
+  display: block;
+  height: 28px;
+  font-size: 13px;
+  width: 100px;
+  line-height: 14px;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+h3 {
+  margin-left: 10px;
+}
+.singlist li img {
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.singlist li {
+  width: 90%;
+  height: 60px;
+  margin-left: 5%;
+  margin-top: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+.singlist li span:first-child {
+  display: block;
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  color: orangered;
+  line-height: 60px;
+  float: left;
+  text-align: center;
+}
+.singlist li .aaa {
+  display: block;
+  width: 50%;
+  height: 60px;
+  float: left;
+  height: 60px;
+  padding-left: 20px;
+  line-height: 60px;
+  /* font-size: 24px; */
+  color: #0094ff;
+  font-weight: 800;
+}
+.songsan {
+  width: 33%;
+  height: 150px;
+  float: left;
+}
+.songsan img {
+  width: 80%;
+  height: 80px;
+  padding: 0 10%;
+}
+.songlist span {
+  display: block;
+  height: 70px;
+  width: 80%;
+  padding: 0 10%;
+  font-size: 14px;
+}
+.songlist {
+  width: 100%;
+}
+.di {
+  width: 100%;
+  text-align: center;
+  color: #333;
 }
 </style>
