@@ -22,7 +22,7 @@
         </div>
         <p>每日推荐</p>
       </div>
-      <div @click="tosongfeilei">
+      <div @click="song">
         <div class="icon">
           <van-icon name="ecard-pay" size="24px" color="#fff" />
         </div>
@@ -137,9 +137,9 @@ export default {
       });
       this.$store.commit("tosong", id);
     },
-    tosongfeilei() {
+    song() {
       this.$router.push({
-        name: "songfeilei"
+        name: "song"
       });
     },
     topaihanglist() {

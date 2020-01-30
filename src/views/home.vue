@@ -11,7 +11,7 @@
         />
       </div>
       <div>
-        <van-icon size="10vw" name="wap-nav" />
+        <van-icon size="10vw" name="wap-nav" @click="search" />
       </div>
     </div>
     <div class="main">
@@ -115,6 +115,13 @@ export default {
       msg: "木子",
       active: 0
     };
+  },
+  methods: {
+    search() {
+      this.$router.push({
+        name: "search"
+      });
+    }
   }
 };
 </script>
