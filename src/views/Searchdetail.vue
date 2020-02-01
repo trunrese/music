@@ -7,6 +7,7 @@
         <div>{{item.artists[0].name}}</div>
       </li>
     </ul>
+    <!-- <audio id="mp3" :src="singurl" controls="controls" autoplay class="audio"></audio> -->
   </div>
 </template>
 <script>

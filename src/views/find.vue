@@ -36,7 +36,12 @@
       </div>
       <div>
         <div class="icon">
-          <van-icon name="play-circle-o" size="24px" color="#fff" />
+          <van-icon
+            name="play-circle-o"
+            size="24px"
+            color="#fff"
+            @click="topaihangdetail(item.id)"
+          />
         </div>
         <p>电台</p>
       </div>

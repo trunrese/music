@@ -5,9 +5,17 @@ import Register from '../views/register.vue'
 import Home from '../views/home.vue'
 import Find from '../views/find.vue'
 import Cloud from '../views/cloud.vue'
-import Search from '../views/search.vue'
-import Searchdeta from '../views/search-deta.vue'
-import song from '../views/song.vue'
+import Search from '../views/Search.vue'
+import Searchdetail from '../views/Searchdetail.vue'
+import Singdetail from '../views/Singdetail.vue'
+import Singer from '../views/Singer.vue'
+import Songfeilei from '../views/Songfeilei.vue'
+import Songfeileidetail from '../views/Songfeileidetail.vue'
+import Songsheetdetail from '../views/Songsheetdetail.vue'
+import Paihangdetail from '../views/Paihangdetail.vue'
+
+
+
 
 
 
@@ -43,17 +51,42 @@ const routes = [{
   {
     path: '/search',
     name: 'search',
-    component: () => import('../views/search.vue')
+    component: () => import('../views/Search.vue')
   },
   {
-    path: '/search-deta',
-    name: 'search-deta',
-    component: () => import('../views/search-deta.vue')
+    path: '/searchdetail',
+    name: 'searchdetail',
+    component: () => import('../views/Searchdetail.vue')
   },
   {
-    path: '/song',
-    name: 'song',
-    component: () => import('../views/song.vue')
+    path: '/singdetail',
+    name: 'singdetail',
+    component: () => import('../views/Singdetail.vue')
+  },
+  {
+    path: '/singer',
+    name: 'singer',
+    component: () => import('../views/Singer.vue')
+  },
+  {
+    path: '/songfeilei',
+    name: 'songfeilei',
+    component: () => import('../views/Songfeilei.vue')
+  },
+  {
+    path: '/songfeileidetail',
+    name: 'songfeileidetail',
+    component: () => import('../views/Songfeileidetail.vue')
+  },
+  {
+    path: '/songsheetdetail',
+    name: 'songsheetdetail',
+    component: () => import('../views/Songsheetdetail.vue')
+  },
+  {
+    path: '/paihangdetail',
+    name: 'paihangdetail',
+    component: () => import('../views/Paihangdetail.vue')
   },
 ]
 
